@@ -1,6 +1,6 @@
 body{
   margin: 0px;
-  background-color: hsl(222, 63%, 95%);
+  background-image: linear-gradient(hsl(223, 54%, 90%),white) ;
 }
 
 #headerDiv{
@@ -39,6 +39,7 @@ body{
   width: 255px;
   margin-top: 20px;
   border-radius: 15px;
+  border-color:rgb(48, 46, 56);
   font-family: montserrat;
   font-weight: 700;
   cursor: pointer;
