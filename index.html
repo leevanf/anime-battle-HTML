@@ -12,19 +12,26 @@
   </style> 
 </head>
 
-<body style="margin: 0px;">
-  <div style="height: 80px; width: 100%; display: flex; background-color: #2e51a2; border-bottom: 3px solid #8eaaeb">
-    <h1 style="font-family: montserrat; color: white; font-weight: 500; margin-left: 10px;">Anime Battle</h1>
+<body>
+  <div id="headerDiv">
+    <h1 id="headerText">Anime Battle</h1>
   </div>
-  <div style="border: 2px red solid; display: flex;">
-    <img style="height: 350px; width: 255px; margin-left: auto;">
-    <img style="height: 86px; width: 100px; margin-left: auto; margin-top: auto; margin-bottom: auto;" src="./assets/vs.png">
-    <img style="height: 350px; width: 255px; margin-left: auto; margin-right: auto;">
+  <div id="voteDiv">
+    <div class="characterVoteArea" style="margin-left: auto;">
+      <img class="characterImage">
+      <button class="voteButton">Votar!</button>
+    </div>
+    <img id="vsImage" src="./assets/vs.png">
+    <div class="characterVoteArea" style="margin-right: auto;">
+      <img class="characterImage">
+      <button class="voteButton">Votar!</button>
+    </div>
   </div>
-  <div style="border: 2px blue solid; display: flex; margin-top: 10px">
-    <button class="voteButton">Votar!</button>
-    <button class="voteButton" style="margin-right: auto;">Votar!</button>
-  </div>
+  <!-- <div style="display:flex; flex-direction: row">
+    <div class="firework"></div>
+    <div class="firework"></div>
+    <div class="firework"></div>
+  </div> -->
   <script type="module" src="/src/main.ts"></script>
 </body>
 
