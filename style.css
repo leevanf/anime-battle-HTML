@@ -1,3 +1,7 @@
+*{
+  font-family: montserrat;
+}
+
 body{
   margin: 0px;
   background-image: linear-gradient(hsl(223, 54%, 90%),white) ;
@@ -12,7 +16,6 @@ body{
 }
 
 #headerText{
-  font-family: montserrat;
   color: white;
   font-weight: 500;
   margin-left: 15px;
@@ -40,7 +43,6 @@ body{
   margin-top: 20px;
   border-radius: 15px;
   border-color:rgb(48, 46, 56);
-  font-family: montserrat;
   font-weight: 700;
   cursor: pointer;
   background-color: hsl(222, 34%, 62%);
@@ -58,6 +60,38 @@ body{
   height: 86px;
   width: 100px;
   margin: auto;
+}
+
+#parametersText{
+  font-weight: 500;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+#selectionDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.optionButton{
+  height: 30px;
+  width: 140px;
+  margin-top: 20px;
+  border-radius: 15px;
+  border-color:rgb(48, 46, 56);
+  font-weight: 700;
+  cursor: pointer;
+  background-color: hsl(2, 63%, 84%);
+}
+
+.optionButton:hover {
+  background-color: hsl(2, 64%, 64%);
+}
+  
+.optionButton:active {
+  background-color: hsl(2, 64%, 54%);
 }
 
 
