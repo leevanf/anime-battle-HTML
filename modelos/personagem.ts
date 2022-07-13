@@ -15,3 +15,14 @@ export type Personagem = {
   manga: AparenciaManga[];
   voices: VoiceMAL[];
 };
+
+export type PersonagemSimplificado = {
+  character: {
+    mal_id: string;
+    url: string;
+    images: Imagens;
+    name: string;
+  };
+  role: string;
+  voice_actors: VoiceMAL[];
+};
