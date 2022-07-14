@@ -81,9 +81,15 @@ function venceTorneio() {
   }
 }
 
-function animacaoVitoria() {}
+function animacaoVitoria() {
+  const fireworksDiv = document.getElementById("showFireworksDiv")!
+  fireworksDiv.appendChild(stringToHTML(`<div class="firework"></div><div class="firework"></div><div class="firework"></div>`))
+  setTimeout(cleanupVitoria, 10000)
+}
 
-function cleanupVitoria() {}
+function cleanupVitoria() {
+  document.getElementById("showFireworksDiv")!.innerHTML = ""
+}
 
 function votaPersonagem(button: HTMLButtonElement) {
   let vencedor = button.id == "leftVote" ? 0 : 1;
@@ -127,3 +133,9 @@ buttonStartBattle.addEventListener("click", () => {
     batalha();
   });
 });
+
+function stringToHTML(str: string): HTMLElement {
+	const parser = new DOMParser();
+	const doc = parser.parseFromString(str, 'text/html');
+	return doc.body;
+};
