@@ -19,58 +19,115 @@
   <div id="voteDiv">
     <div class="characterVoteArea" style="margin-left: auto;">
       <img class="characterImage">
-      <button class="voteButton">Votar!</button>
+      <button id="leftVote" class="voteButton">Votar!</button>
     </div>
     <img id="vsImage" src="./assets/vs.png">
     <div class="characterVoteArea" style="margin-right: auto;">
       <img class="characterImage">
-      <button class="voteButton">Votar!</button>
+      <button id="rightVote" class="voteButton">Votar!</button>
     </div>
   </div>
   <div id="selectionDiv">
     <button class="optionButton">Start Battle!</button>
-    <button class="optionButton">Set Parameters...</button>
-    <!-- <template>
-      <h2 id="parametersText">Parameters</h2>
-    </template> -->
-    <div style="border: red dotted 5px; display: block;">
-      <input type="checkbox"> Dragon Ball
-      <input type="checkbox" style="margin-left: 55px;"> Naruto
-      <input type="checkbox" style="margin-left: 20px;"> Fairy Tail
-      <input type="checkbox" style="margin-left: 20px;"> Bleach
-      <input type="checkbox" style="margin-left: 20px;"> Fullmetal Brotherhood
-      <input type="checkbox" style="margin-left: 20px;"> One Piece
-      <br>
-      <input type="checkbox"> Boku no Hero
-      <input type="checkbox" style="margin-left: 39px;"> Hunter x Hunter
-      <input type="checkbox"> Shingeki no Kyojin
-      <input type="checkbox"> Sword Art Online
-      <input type="checkbox"> Kaguya-sama
-      <input type="checkbox"> Death Note
-      <br>
-      <input type="checkbox"> Sailor Moon
-      <input type="checkbox" style="margin-left: 55px;"> JoJo Kimyou na Bouken
-      <input type="checkbox"> Holo no Graffiti
-      <input type="checkbox"> Jujutsu Kaisen
-      <input type="checkbox"> One Punch Man
-      <input type="checkbox"> Angel Beats
-      <br>
-      <input type="checkbox"> Kimetsu no Yaiba
-      <input type="checkbox" style="margin-left: 10px;"> One Punch Man
-      <input type="checkbox"> Steins;Gate
-      <input type="checkbox"> Re:Zero
-      <input type="checkbox"> Overlord
-      <input type="checkbox"> Tokyo Ghoul
-      <br>
-      <input type="checkbox"> No Game No Life
-      <input type="checkbox" style="margin-left: 14px;"> Code Geass
-      <input type="checkbox"> Toradora
-      <input type="checkbox"> Shigatsu
-      <input type="checkbox"> Ano Hana
-      <input type="checkbox"> Noragami
-      <br>
+    <button id="setParametersButton" class="optionButton">Set Parameters...</button>
+    
+    <div id="parametersList" class="grid-container">
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Dragon Ball
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Fullmetal Alchemist
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Fairy Tail
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Bleach
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Naruto
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > One Piece
+        </div>
 
-    </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Boku no Hero
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Hunter x Hunter
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Steins;Gate
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Sword Art Online
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Kaguya-sama
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Death Note
+        </div>
+
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Sailor Moon
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > JoJo Kimyou na Bouken
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Holo no Graffiti
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Jujutsu Kaisen
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > One Punch Man
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Angel Beats
+        </div>
+
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Kimetsu no Yaiba
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Shingeki no Kyojin
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Re:Zero
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Overlord
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Tokyo Ghoul
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Black Clover
+        </div>
+
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > No Game No Life
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Shigatsu wa Kimi no Uso
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Code Geass
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Ano Hana
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Noragami
+        </div>
+        <div class="grid-item">
+          <input class="grid-item" type="checkbox" > Toradora
+        </div>
+    </div> 
+
   </div>
   <!-- <div style="display:flex; flex-direction: row">
     <div class="firework"></div>

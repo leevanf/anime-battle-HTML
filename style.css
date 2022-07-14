@@ -95,6 +95,29 @@ body{
 }
 
 
+#setParametersButton{
+  transition: background-color 0.2s linear;
+}
+#parametersList{
+  padding: 0 0px;
+  max-height: "0px";
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  padding: 10px;
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.grid-item {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  text-align: left;
+  font-size: 16px;
+}
 
 
 @keyframes firework {
