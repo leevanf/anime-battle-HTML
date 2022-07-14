@@ -118,12 +118,12 @@ buttonSetParameters.addEventListener("click", () => {
 });
 buttonStartBattle.addEventListener("click", () => {
   animesBatalha = buscaSelecionados();
-
+  console.log(animesBatalha);
   buscaPersonagensParaBatalha(animesBatalha).then((personagens) => {
     personagensBatalhaValidos = personagens;
-    console.log(personagens);
+    //console.log(personagens);
     personagensTorneoAtual = criaNovoTorneio(personagens);
-    console.log(personagensTorneoAtual);
+    //console.log(personagensTorneoAtual);
     batalha();
   });
 });

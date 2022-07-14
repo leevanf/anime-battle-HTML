@@ -31,20 +31,41 @@ export async function getCharactersByAnimeIDOnly(
 }
 
 export function buscaPersonagensParaBatalha(animesBatalha: number[]) {
-  return new Promise<number[]>((resolve, reject) => {
-    const personagens: number[] = [];
-    const promessas: Promise<PersonagemSimplificado[]>[] = [];
-    animesBatalha.forEach((animeId) => {
-      promessas.push(getAnimeCharacters(animeId));
-    });
-    Promise.allSettled(promessas).then((promessasResolvidas) => {
-      promessasResolvidas.forEach((personagensSimples) => {
-        const personagensAnimeID = personagensSimples.value.map((elemento) => {
-          return parseInt(elemento.character.mal_id);
+  let animesParaBuscar = [];
+  let personagens: number[] = [];
+  if (animesBatalha.length > 3) {
+    animesParaBuscar = animesBatalha.slice(0, 3);
+    const resto = animesBatalha.slice(3);
+    const promessas = [buscaPersonagensParaBatalha(animesParaBuscar)];
+    return new Promise<number[]>((resolve, reject) => {
+      setTimeout(() => {
+        promessas.push(buscaPersonagensParaBatalha(resto));
+        Promise.allSettled(promessas).then((promessasResolvidas) => {
+          promessasResolvidas.forEach((promessaResolvida) => {
+            personagens.push(...promessaResolvida.value);
+          });
+          resolve(personagens);
         });
-        personagens.push(...personagensAnimeID);
-      });
-      resolve(personagens);
+      }, 1500);
     });
-  });
+  } else {
+    animesParaBuscar = animesBatalha;
+    return new Promise<number[]>((resolve, reject) => {
+      const promessas: Promise<PersonagemSimplificado[]>[] = [];
+      animesBatalha.forEach((animeId) => {
+        promessas.push(getAnimeCharacters(animeId));
+      });
+      Promise.allSettled(promessas).then((promessasResolvidas) => {
+        promessasResolvidas.forEach((personagensSimples) => {
+          const personagensAnimeID = personagensSimples.value.map(
+            (elemento) => {
+              return parseInt(elemento.character.mal_id);
+            }
+          );
+          personagens.push(...personagensAnimeID);
+        });
+        resolve(personagens);
+      });
+    });
+  }
 }
