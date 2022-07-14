@@ -22,9 +22,8 @@ body{
 }
 
 #voteDiv{
-  /* border: 2px red dashed;  */
   display: flex; 
-  margin-top: 20px
+  margin-top: 20px;
 }
 
 .characterVoteArea{
@@ -73,6 +72,27 @@ body{
   width: 125px;
   margin: auto;
 }
+
+#winnerDiv{
+  display: none; 
+  margin-top: 20px;
+}
+
+.winnerCharacterArea{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+#winnerButton{
+  height: 30px;
+  width: 255px;
+  margin-top: 20px;
+  border-color:rgb(48, 46, 56);
+  font-weight: 700;
+  background-color: hsla(222, 34%, 62%, 0.123);
+}
+
 
 #parametersText{
   font-weight: 500;
