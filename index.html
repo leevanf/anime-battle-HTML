@@ -11,13 +11,19 @@
   </style> 
 </head>
 
-<body>
+<body id="body">
+  <div id="loadingScreenDiv">
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+
   <div id="showFireworksDiv">
     <!-- Insira aqui  -->
   </div>
+
   <div id="headerDiv">
     <h1 id="headerText">Anime Battle</h1>
   </div>
+  
   <div id="voteDiv">
     <div class="characterVoteArea" style="margin-left: auto;">
       <img class="characterImage">
@@ -41,10 +47,6 @@
       <label id="winnerCharacterAnime" class="characterAnime">a</label>
       <button id="winnerButton">YATTA!!!</button>
     </div>
-  </div>
-  
-  <div id="loadingScreen" style="display: none">
-    LOADING
   </div>
 
   <div id="selectionDiv">
@@ -145,6 +147,13 @@
         </div>
         <div class="grid-item">
           <input id="anime_4224" class="grid-item" type="checkbox" name="checkboxAnime"> Toradora
+        </div>
+
+        <div class="grid-item" style="grid-column-start: 1; grid-column-end: 6;">
+          <label>Não selecionar nenhum anime resultará em um anime aleatório ser escolhido (EXPERIMENTAL)</label>
+        </div>
+        <div class="grid-item">
+          <input id="checkAll" class="grid-item" type="checkbox"> Escolher todos
         </div>
     </div> 
 

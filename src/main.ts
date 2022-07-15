@@ -8,6 +8,10 @@ import { persisteVitoria, recuperaRanking } from "./services/persistencia";
 import { stringToHTML } from "./misc";
 import { preencheRanking } from "./ranking";
 
+const loadingScreen = document.getElementById("loadingScreenDiv")!
+const body =  document.getElementById("body")!
+const checkAllBoxes = <HTMLInputElement>document.getElementById("checkAll")!
+
 const checkBoxesAnimes = document.querySelectorAll<HTMLInputElement>(
   '[name="checkboxAnime"]'
 )!;
@@ -94,6 +98,7 @@ function batalha() {
       imgsCharacters[1].src = personagem.images.jpg.image_url;
       labelRightCharacterAnime.innerText = personagem.anime[0].anime.title;
       labelRightCharacterName.innerText = personagem.name;
+      hideLoadingScreen()
     }
   );
   imgsCharacters.forEach((imgContainer) => {
@@ -126,6 +131,7 @@ function animacaoVitoria(idVencedor: number) {
       : labelRightCharacterAnime.innerText;
   divVote.style.display = "none";
   divWinner.style.display = "flex";
+  hideLoadingScreen()
   const fireworksDiv = document.getElementById("showFireworksDiv")!;
   fireworksDiv.appendChild(
     stringToHTML(
@@ -154,14 +160,28 @@ function votaPersonagem(button: HTMLButtonElement) {
   }
 }
 
+function showLoadingScreen(){
+  loadingScreen.style.display = "flex"
+  body.style.overflow = "hidden"
+}
+
+function hideLoadingScreen(){
+  loadingScreen.style.display = "none"
+  body.style.overflow = ""
+}
+
 preencheRanking();
 
 mudaVisibilidadeBotoes("none");
-voteButtons[0].addEventListener("click", (event) =>
+voteButtons[0].addEventListener("click", (event) => {
+  showLoadingScreen()
   votaPersonagem(event.target as HTMLButtonElement)
+  }
 );
-voteButtons[1].addEventListener("click", (event) =>
+voteButtons[1].addEventListener("click", (event) => {
+  showLoadingScreen()
   votaPersonagem(event.target as HTMLButtonElement)
+  }
 );
 
 buttonSetParameters.addEventListener("click", () => {
@@ -172,7 +192,7 @@ buttonSetParameters.addEventListener("click", () => {
   }
 });
 buttonStartBattle.addEventListener("click", () => {
-  document.getElementById("loadingScreen")!.style.display = ""
+  showLoadingScreen()
   buscaSelecionados().then((animesID) => {
     buscaPersonagensParaBatalha(animesID).then((personagens) => {
       console.log(animesID);
@@ -182,7 +202,10 @@ buttonStartBattle.addEventListener("click", () => {
       divWinner.style.display = "none";
       divVote.style.display = "flex";
       batalha();
-      document.getElementById("loadingScreen")!.style.display = "none"
     });
   })
 });
+
+checkAllBoxes.addEventListener("change", () => {
+  checkBoxesAnimes.forEach((checkbox) => {checkbox.checked = checkAllBoxes.checked})
+})
