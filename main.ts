@@ -3,9 +3,9 @@ import {
   buscaPersonagensParaBatalha,
   getCharacterFullById,
 } from "./services/buscaPersonagem";
-import { getAnimeCharacters, getAnimeFullByID } from "./services/buscaAnime";
-import { PersonagemSimplificado } from "./modelos/personagem";
-import { persisteVitoria } from "./services/persistencia";
+import { persisteVitoria, recuperaRanking } from "./services/persistencia";
+import { stringToHTML } from "./misc";
+import { preencheRanking } from "./ranking";
 
 const checkBoxesAnimes = document.querySelectorAll<HTMLInputElement>(
   '[name="checkboxAnime"]'
@@ -22,6 +22,21 @@ const buttonStartBattle =
 
 const divParametersList =
   document.querySelector<HTMLDivElement>("#parametersList")!;
+
+const labelLeftCharacterName =
+  document.querySelector<HTMLLabelElement>("#leftCharacterName")!;
+const labelLeftCharacterAnime = document.querySelector<HTMLLabelElement>(
+  "#leftCharacterAnime"
+)!;
+const labelRightCharacterName = document.querySelector<HTMLLabelElement>(
+  "#rightCharacterName"
+)!;
+const labelRightCharacterAnime = document.querySelector<HTMLLabelElement>(
+  "#rightCharacterAnime"
+)!;
+
+const divVote = document.querySelector<HTMLDivElement>("#voteDiv")!;
+const divWinner = document.querySelector<HTMLDivElement>("#winnerDiv")!;
 
 let animesBatalha: number[] = [];
 let personagensBatalhaValidos: number[] = [];
@@ -63,58 +78,90 @@ function criaNovoTorneio(personagensValidos: number[]): number[] {
 function batalha() {
   batalhaAtual = personagensTorneoAtual.slice(0, 2);
   personagensTorneoAtual.splice(0, 2);
+  // console.log(`Luta atual: ${batalhaAtual}`);
+  // console.log(`Personagens Restantes: ${personagensTorneoAtual}`);
   const personagemEsquerda = getCharacterFullById(batalhaAtual[0]).then(
     (personagem) => {
       imgsCharacters[0].src = personagem.images.jpg.image_url;
+      labelLeftCharacterName.innerText = personagem.name;
+      labelLeftCharacterAnime.innerText = personagem.anime[0].anime.title;
     }
   );
   const personagemDireita = getCharacterFullById(batalhaAtual[1]).then(
     (personagem) => {
       imgsCharacters[1].src = personagem.images.jpg.image_url;
+      labelRightCharacterAnime.innerText = personagem.anime[0].anime.title;
+      labelRightCharacterName.innerText = personagem.name;
     }
   );
+  imgsCharacters.forEach((imgContainer) => {
+    imgContainer.src = "";
+  });
+  labelLeftCharacterName.innerText = "";
+  labelLeftCharacterAnime.innerText = "";
+  labelRightCharacterAnime.innerText = "";
+  labelRightCharacterName.innerText = "";
 }
 
-function venceTorneio() {
-  if (personagensTorneoAtual.length > 1) {
-    throw new Error("Torneio Indefinido!");
-  }
+function mudaVisibilidadeBotoes(visibilidade: "none" | "") {
+  voteButtons.forEach((button) => {
+    button.style.display = visibilidade;
+  });
 }
 
-function animacaoVitoria() {
-  const fireworksDiv = document.getElementById("showFireworksDiv")!
-  fireworksDiv.appendChild(stringToHTML(`<div class="firework"></div><div class="firework"></div><div class="firework"></div>`))
-  setTimeout(cleanupVitoria, 10000)
+function animacaoVitoria(idVencedor: number) {
+  mudaVisibilidadeBotoes("none");
+  preencheRanking();
+  document.querySelector<HTMLImageElement>("#winnerCharacterImage")!.src =
+    imgsCharacters[idVencedor].src;
+  document.querySelector<HTMLLabelElement>("#winnerCharacterName")!.innerText =
+    idVencedor === 0
+      ? labelLeftCharacterName.innerText
+      : labelRightCharacterName.innerText;
+  document.querySelector<HTMLLabelElement>("#winnerCharacterAnime")!.innerText =
+    idVencedor === 0
+      ? labelLeftCharacterAnime.innerText
+      : labelRightCharacterAnime.innerText;
+  divVote.style.display = "none";
+  divWinner.style.display = "flex";
+  const fireworksDiv = document.getElementById("showFireworksDiv")!;
+  fireworksDiv.appendChild(
+    stringToHTML(
+      `<div class="firework"></div><div class="firework"></div><div class="firework"></div>`
+    )
+  );
+  setTimeout(cleanupVitoria, 10000);
 }
 
 function cleanupVitoria() {
-  document.getElementById("showFireworksDiv")!.innerHTML = ""
+  document.getElementById("showFireworksDiv")!.innerHTML = "";
 }
 
 function votaPersonagem(button: HTMLButtonElement) {
-  let vencedor = button.id == "leftVote" ? 0 : 1;
+  const vencedor = button.id == "leftVote" ? 0 : 1;
   personagensTorneoAtual.unshift(batalhaAtual[vencedor]);
+  const nomeVencedor =
+    vencedor == 0
+      ? labelLeftCharacterName.innerText
+      : labelRightCharacterName.innerText;
   if (personagensTorneoAtual.length === 1) {
-    persisteVitoria(batalhaAtual[vencedor]);
-    animacaoVitoria();
-    cleanupVitoria();
+    persisteVitoria(nomeVencedor);
+    animacaoVitoria(vencedor);
   } else {
     batalha();
   }
 }
 
-// setTimeout(criaNovoTorneio, 1000);
-// setTimeout(batalha, 1500);
-// criaNovoTorneio();
-// console.log(personagensTorneoAtual);
-// batalha();
+preencheRanking();
 
+mudaVisibilidadeBotoes("none");
 voteButtons[0].addEventListener("click", (event) =>
   votaPersonagem(event.target as HTMLButtonElement)
 );
 voteButtons[1].addEventListener("click", (event) =>
   votaPersonagem(event.target as HTMLButtonElement)
 );
+
 buttonSetParameters.addEventListener("click", () => {
   if (window.getComputedStyle(divParametersList).maxHeight !== "0px") {
     divParametersList!.style.maxHeight = "0px";
@@ -124,18 +171,16 @@ buttonSetParameters.addEventListener("click", () => {
 });
 buttonStartBattle.addEventListener("click", () => {
   animesBatalha = buscaSelecionados();
-  console.log(animesBatalha);
+  // console.log(animesBatalha);
+
   buscaPersonagensParaBatalha(animesBatalha).then((personagens) => {
     personagensBatalhaValidos = personagens;
     //console.log(personagens);
     personagensTorneoAtual = criaNovoTorneio(personagens);
     //console.log(personagensTorneoAtual);
+    mudaVisibilidadeBotoes("");
+    divWinner.style.display = "none";
+    divVote.style.display = "flex";
     batalha();
   });
 });
-
-function stringToHTML(str: string): HTMLElement {
-	const parser = new DOMParser();
-	const doc = parser.parseFromString(str, 'text/html');
-	return doc.body;
-};

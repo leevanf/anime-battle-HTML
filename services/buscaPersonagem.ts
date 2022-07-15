@@ -40,13 +40,16 @@ export function buscaPersonagensParaBatalha(animesBatalha: number[]) {
     return new Promise<number[]>((resolve, reject) => {
       setTimeout(() => {
         promessas.push(buscaPersonagensParaBatalha(resto));
-        Promise.allSettled(promessas).then((promessasResolvidas) => {
+        Promise.allSettled(promessas).then((promessasSettled) => {
+          const promessasResolvidas = promessasSettled.filter(
+            (elemento) => elemento.status === "fulfilled"
+          ) as unknown as PromiseFulfilledResult<number[]>[];
           promessasResolvidas.forEach((promessaResolvida) => {
             personagens.push(...promessaResolvida.value);
           });
           resolve(personagens);
         });
-      }, 1500);
+      }, 3000 + Math.random() * 3000);
     });
   } else {
     animesParaBuscar = animesBatalha;
