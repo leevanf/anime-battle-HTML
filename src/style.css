@@ -4,7 +4,8 @@
 
 #body{
   margin: 0px;
-  background-image: linear-gradient(hsl(223, 54%, 90%),white) ;
+  background-image: linear-gradient(hsl(222, 59%, 85%),hsl(220, 27%, 96%)) ;
+  background-repeat: no-repeat;
   overflow: "";
 }
 
@@ -280,16 +281,16 @@
 .firework::before,
 .firework::after
 {
-  --initialSize: 0.5vmin;
-  --finalSize: 45vmin;
-  --particleSize: 0.2vmin;
+  --initialSize: 1vmin;
+  --finalSize: 90vmin;
+  --particleSize: 0.5vmin;
   --color1: rgb(140, 0, 145);
   --color2: rgb(0, 3, 180);
   --color3: white;
   --color4: lime;
   --color5: gold;
   --color6: rgb(219, 6, 6);
-  --y: -30vmin;
+  --y: -60vmin;
   --x: -50%;
   --initialY: 60vmin;
   content: "";
