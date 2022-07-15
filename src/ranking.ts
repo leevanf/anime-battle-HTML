@@ -1,7 +1,7 @@
 import { apagaFilhos } from "./misc";
 import { recuperaRanking } from "./services/persistencia";
 
-const ulRanking = document.querySelector<HTMLUListElement>("#ranking")!;
+export const ulRanking = document.querySelector<HTMLUListElement>("#ranking")!;
 
 export function preencheRanking() {
   const rankAtual = recuperaRanking();

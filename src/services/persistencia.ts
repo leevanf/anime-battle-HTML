@@ -19,9 +19,16 @@ export function recuperaRanking() {
       rank.push(newRank);
     }
   }
-  rank.sort((elementoA, elementeB) => {
-    return elementeB.victories - elementoA.victories;
+  rank.sort((elementoA, elementoB) => {
+    return elementoB.victories - elementoA.victories;
   });
-  console.log(rank);
   return rank;
+}
+
+export function clearRanking(ranking: HTMLUListElement){
+  const rank = recuperaRanking()
+  for (let element of rank){    
+    localStorage.removeItem(element.name)
+  }
+  ranking.innerHTML = ""
 }

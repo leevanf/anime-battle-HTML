@@ -4,13 +4,13 @@ import {
   getCharacterFullById,
 } from "./services/buscaPersonagem";
 import { getRandomAnime } from "./services/buscaAnime";
-import { persisteVitoria, recuperaRanking } from "./services/persistencia";
+import { persisteVitoria, recuperaRanking, clearRanking } from "./services/persistencia";
 import { stringToHTML } from "./misc";
-import { preencheRanking } from "./ranking";
+import { preencheRanking, ulRanking } from "./ranking";
 
-const loadingScreen = document.getElementById("loadingScreenDiv")!
-const body =  document.getElementById("body")!
-const checkAllBoxes = <HTMLInputElement>document.getElementById("checkAll")!
+const loadingScreen = document.querySelector<HTMLDivElement>("#loadingScreenDiv")!;
+const body = document.querySelector<HTMLBodyElement>("#body")!;
+const checkAllBoxes = <HTMLInputElement>document.getElementById("checkAll")!;
 
 const checkBoxesAnimes = document.querySelectorAll<HTMLInputElement>(
   '[name="checkboxAnime"]'
@@ -42,6 +42,8 @@ const labelRightCharacterAnime = document.querySelector<HTMLLabelElement>(
 
 const divVote = document.querySelector<HTMLDivElement>("#voteDiv")!;
 const divWinner = document.querySelector<HTMLDivElement>("#winnerDiv")!;
+
+const resetRanking = document.querySelector<HTMLButtonElement>("#resetRankingButton")!;
 
 let animesBatalha: number[] = [];
 let personagensBatalhaValidos: number[] = [];
@@ -209,3 +211,5 @@ buttonStartBattle.addEventListener("click", () => {
 checkAllBoxes.addEventListener("change", () => {
   checkBoxesAnimes.forEach((checkbox) => {checkbox.checked = checkAllBoxes.checked})
 })
+
+resetRanking.addEventListener("click", () => {clearRanking(ulRanking)})
