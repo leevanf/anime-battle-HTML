@@ -6,13 +6,25 @@ import { baseURL } from ".";
 import { Personagem, PersonagemSimplificado } from "../modelos/personagem";
 import { getAnimeCharacters } from "./buscaAnime";
 
-export function getCharacterFullById(id: number): Promise<Personagem> {
+export function getCharacterFullById(
+  id: number,
+  retries = 3
+): Promise<Personagem> {
+  if (retries < 1) {
+    return Promise.reject("Excedidas o numero de tentativas");
+  }
   return new Promise<Personagem>((resolve, reject) => {
     fetch(`${baseURL}characters/${id}/full`)
       .then((resposta) => {
-        resposta.json().then((jason) => {
-          resolve(jason.data);
-        });
+        if (resposta.status != 200) {
+          getCharacterFullById(id, --retries)
+            .then((resp) => resolve(resp))
+            .catch((reas) => reject(reas));
+        } else {
+          resposta.json().then((jason) => {
+            resolve(jason.data);
+          });
+        }
       })
       .catch((reason) => {
         reject(reason);
@@ -61,7 +73,7 @@ export function buscaPersonagensParaBatalha(animesBatalha: number[]) {
       Promise.allSettled(promessas).then((promessasResolvidas) => {
         promessasResolvidas.forEach((personagensSimples) => {
           const personagensAnimeID = personagensSimples.value.map(
-            (elemento) => {
+            (elemento: PersonagemSimplificado) => {
               return parseInt(elemento.character.mal_id);
             }
           );
