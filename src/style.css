@@ -4,7 +4,7 @@
 
 #body{
   margin: 0px;
-  background-image: linear-gradient(hsl(222, 59%, 85%),hsl(220, 27%, 96%)) ;
+  background-image: linear-gradient(hsl(222, 59%, 85%),white) ;
   background-repeat: no-repeat;
   overflow: "";
 }
